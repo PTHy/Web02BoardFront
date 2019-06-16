@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { BrowserRouter, Route, Link } from "react-router-dom";
+import { BrowserRouter, Route, Link, Switch } from "react-router-dom";
 import { Provider } from "mobx-react";
 
 import './App.scss'
@@ -7,9 +7,13 @@ import './App.scss'
 import Stores from './Stores'
 
 import Home from './Home';
-import Page1 from './Page1';
-import Page2 from './Page2';
-import Page3 from './Page3';
+import User from './User';
+import UserRegister from './User/UserRegister'
+import UserEdit from "./User/UserEdit";
+
+import BoardAdd from './Board/BoardAdd';
+import BoardDetail from './Board/BoardDetail';
+import BoardEdit from './Board/BoardEdit';
 
 class App extends Component {
     render() {
@@ -19,16 +23,20 @@ class App extends Component {
                     <header className='app-header'>
                         <ul className='menu-bar'>
                             <li><Link to='/'>Home</Link></li>
-                            <li><Link to='/page1'>Page 1</Link></li>
-                            <li><Link to='/page2'>Page 2</Link></li>
-                            <li><Link to='/page3'>Page 3</Link></li>
+                            <li><Link to='/user'>User</Link></li>
                         </ul>
                     </header>
                     <section className='app-body'>
-                        <Route path='/' component={Home}/>
-                        <Route path='/page1' component={Page1}/>
-                        <Route path='/page2' component={Page2}/>
-                        <Route path='/page3' component={Page3}/>
+                        <Switch>
+                            <Route exact path='/user/register' component={UserRegister}/>
+                            <Route exact path='/user/edit' component={UserEdit}/>
+                            <Route exact path='/user' component={User}/>
+
+                            <Route exact path='/' component={Home}/>
+                            <Route exact path='/board/add' component={BoardAdd} />
+                            <Route path='/board/edit/:id' component={BoardEdit} />
+                            <Route path='/board/:id' component={BoardDetail} />
+                        </Switch>
                     </section>
                 </BrowserRouter>
             </Provider>
